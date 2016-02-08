@@ -60,7 +60,6 @@ class SuumoViewController: UIViewController {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         pointBefore = (touch?.locationInView(self.view))!
-        print(pointBefore)
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {                let touch = touches.first
@@ -70,17 +69,11 @@ class SuumoViewController: UIViewController {
         lotateX = (accuracy * Float(pointDiff.x) + lotateX) % Float(M_PI*2)
         tubeNode.rotation = SCNVector4(x:0, y:0, z:1, w: lotateX)
         
-        lotateY = (accuracy * Float(pointDiff.y) + lotateY) % Float(M_PI*2)
-        cameraNode.rotation = SCNVector4(x:1, y:0, z:0, w: lotateY)
-        
+        if (abs((accuracy * Float(pointDiff.y) + lotateY)) < 0.3){
+            lotateY = (accuracy * Float(pointDiff.y) + lotateY)
+            cameraNode.rotation = SCNVector4(x:1, y:0, z:0, w: lotateY)
+        }
         pointBefore = pointNow
-        
-    }
-    
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let touch = touches.first
-        let pointNow = (touch?.locationInView(self.view))!
-        print(pointNow)
     }
 
 }
