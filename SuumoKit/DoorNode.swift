@@ -24,10 +24,12 @@ class DoorNode: SCNNode {
     }
     
     func create_door(){
-        self.geometry = SCNCylinder(radius: 0.5, height: 0.1)
+        let plane = SCNPlane(width: 1.0, height: 1.0)
+        plane.cornerRadius = 0.5
+        self.geometry = plane
         let door = SCNMaterial()
         door.diffuse.contents = UIImage(named:"door.png")
-        self.pivot = SCNMatrix4MakeRotation(Float(M_PI_2), 1, 0, 0)
+        door.doubleSided = true
         self.geometry!.firstMaterial = door
     }
     

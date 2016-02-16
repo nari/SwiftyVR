@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27EC98B8BA3AEE3426985431 /* Pods_SuumoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E635EB83E01AA907199D57 /* Pods_SuumoKit.framework */; };
 		4D2844771C72CAE200574206 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2844761C72CAE200574206 /* RoomView.swift */; };
 		4D28447B1C72CBD900574206 /* 02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D2844781C72CBD900574206 /* 02.jpg */; };
 		4D28447C1C72CBD900574206 /* 03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D2844791C72CBD900574206 /* 03.jpg */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E0599F20F5FEF022C639E4D /* Pods-SuumoKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuumoKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-SuumoKit/Pods-SuumoKit.release.xcconfig"; sourceTree = "<group>"; };
+		419D5E072C1E230D786A86C9 /* Pods-SuumoKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuumoKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SuumoKit/Pods-SuumoKit.debug.xcconfig"; sourceTree = "<group>"; };
 		4D2844761C72CAE200574206 /* RoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		4D2844781C72CBD900574206 /* 02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 02.jpg; sourceTree = "<group>"; };
 		4D2844791C72CBD900574206 /* 03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 03.jpg; sourceTree = "<group>"; };
@@ -40,6 +43,7 @@
 		4DEEF1D91C61E8AB00FC7546 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4DEEF1DC1C61E8AB00FC7546 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4DEEF1DE1C61E8AB00FC7546 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84E635EB83E01AA907199D57 /* Pods_SuumoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuumoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,12 +51,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27EC98B8BA3AEE3426985431 /* Pods_SuumoKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06FFD1F6529B5872A1402D10 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84E635EB83E01AA907199D57 /* Pods_SuumoKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4D2844801C72CBE900574206 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +83,8 @@
 			children = (
 				4DEEF1CF1C61E8AB00FC7546 /* SuumoKit */,
 				4DEEF1CE1C61E8AB00FC7546 /* Products */,
+				8944814B235FF27BCABBE060 /* Pods */,
+				06FFD1F6529B5872A1402D10 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +114,15 @@
 			path = SuumoKit;
 			sourceTree = "<group>";
 		};
+		8944814B235FF27BCABBE060 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				419D5E072C1E230D786A86C9 /* Pods-SuumoKit.debug.xcconfig */,
+				0E0599F20F5FEF022C639E4D /* Pods-SuumoKit.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +130,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4DEEF1E11C61E8AB00FC7546 /* Build configuration list for PBXNativeTarget "SuumoKit" */;
 			buildPhases = (
+				EBFA92A77C1E07DFC678DFE6 /* Check Pods Manifest.lock */,
 				4DEEF1C91C61E8AB00FC7546 /* Sources */,
 				4DEEF1CA1C61E8AB00FC7546 /* Frameworks */,
 				4DEEF1CB1C61E8AB00FC7546 /* Resources */,
+				09409620D98FAEF3AB238007 /* Embed Pods Frameworks */,
+				BB105060A22A1EFC4BACE8D6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -171,6 +198,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		09409620D98FAEF3AB238007 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SuumoKit/Pods-SuumoKit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB105060A22A1EFC4BACE8D6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SuumoKit/Pods-SuumoKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBFA92A77C1E07DFC678DFE6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4DEEF1C91C61E8AB00FC7546 /* Sources */ = {
@@ -289,6 +364,7 @@
 		};
 		4DEEF1E21C61E8AB00FC7546 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 419D5E072C1E230D786A86C9 /* Pods-SuumoKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SuumoKit/Info.plist;
@@ -300,6 +376,7 @@
 		};
 		4DEEF1E31C61E8AB00FC7546 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E0599F20F5FEF022C639E4D /* Pods-SuumoKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SuumoKit/Info.plist;

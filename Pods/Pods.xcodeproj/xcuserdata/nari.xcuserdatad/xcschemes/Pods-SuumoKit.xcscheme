@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F4E874A8B732A9980B41FF91'
+               BlueprintIdentifier = '0CCE16E134C5B5F0EB824558'
                BlueprintName = 'Pods-SuumoKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_SuumoKit.framework'>

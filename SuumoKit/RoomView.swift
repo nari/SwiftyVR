@@ -54,7 +54,6 @@ class RoomView: SCNView {
     func setup(){
         let scene = SCNScene()
         cameraNode.camera = SCNCamera()
-//        cameraNode.position = SCNVector3(0, 0, 30)
         scene.rootNode.addChildNode(cameraNode)
         
         let sphereGeometry = SCNSphere(radius: radiusSphere)
@@ -76,14 +75,11 @@ class RoomView: SCNView {
     }
     
     func addDoor(x: CGFloat, y: CGFloat, lookatX: CGFloat, name: String){
-        var angle = (x / imageSize.width * 360.0 + 180)
-//        angle = 90
-        print(angle)
+        let angle = (x / imageSize.width * 360.0 + 180)
         let rad = M_PI * Double(angle) / 180.0
         let nx = (pointDistance) * CGFloat(cos(rad))
         let ny = (pointDistance) * CGFloat(sin(rad))
         let door = DoorNode(point: SCNVector3(-ny, 0, nx))
-//        door.rotation = SCNVector4(0, 0, 1, convertX(x))
         sphereNode.addChildNode(door)
         door.rotation = SCNVector4(x: 0, y: -1, z: 0, w: Float(convertX(x+imageSize.width/2)))
     }
