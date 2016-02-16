@@ -50,15 +50,7 @@ class RoomView: SCNView {
         sphereGeometry.firstMaterial?.diffuse.wrapS = SCNWrapMode.Repeat
         scene.rootNode.addChildNode(sphereNode)
         
-        let doorNode = SCNNode()
-        doorNode.geometry = SCNCylinder(radius: 0.5, height: 1)
-        doorNode.position = SCNVector3(0, 0, 9.5)
-        let door = SCNMaterial()
-        door.diffuse.contents = UIImage(named:"door.png")
-        doorNode.pivot = SCNMatrix4MakeRotation(Float(M_PI_2), 1, 0, 0)
-        doorNode.rotation = SCNVector4(x: 0, y: 0, z: 1, w: Float(M_PI / 2))
-        doorNode.geometry!.firstMaterial = door
-        
+        let doorNode = DoorNode()
         sphereNode.addChildNode(doorNode)
         
         cameraNode.position = SCNVector3(x:0, y:0, z: 0)
