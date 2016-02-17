@@ -22,6 +22,7 @@
 		4DEEF1D81C61E8AB00FC7546 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DEEF1D61C61E8AB00FC7546 /* Main.storyboard */; };
 		4DEEF1DA1C61E8AB00FC7546 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DEEF1D91C61E8AB00FC7546 /* Assets.xcassets */; };
 		4DEEF1DD1C61E8AB00FC7546 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DEEF1DB1C61E8AB00FC7546 /* LaunchScreen.storyboard */; };
+		4DF9473B1C74118F00D0FCAD /* HouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF9473A1C74118F00D0FCAD /* HouseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		4DEEF1D91C61E8AB00FC7546 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4DEEF1DC1C61E8AB00FC7546 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4DEEF1DE1C61E8AB00FC7546 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DF9473A1C74118F00D0FCAD /* HouseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseView.swift; sourceTree = "<group>"; };
 		84E635EB83E01AA907199D57 /* Pods_SuumoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuumoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -102,6 +104,7 @@
 				4DEEF1D01C61E8AB00FC7546 /* AppDelegate.swift */,
 				4DEEF1D21C61E8AB00FC7546 /* art.scnassets */,
 				4DEEF1D41C61E8AB00FC7546 /* SuumoViewController.swift */,
+				4DF9473A1C74118F00D0FCAD /* HouseView.swift */,
 				4D2844761C72CAE200574206 /* RoomView.swift */,
 				4DAC3DE51C72A83E008A3FA8 /* DoorNode.swift */,
 				4D2844801C72CBE900574206 /* images */,
@@ -158,6 +161,7 @@
 				TargetAttributes = {
 					4DEEF1CC1C61E8AB00FC7546 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = S6UH24FL4M;
 					};
 				};
 			};
@@ -252,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DF9473B1C74118F00D0FCAD /* HouseView.swift in Sources */,
 				4DAC3DE61C72A83E008A3FA8 /* DoorNode.swift in Sources */,
 				4D2844771C72CAE200574206 /* RoomView.swift in Sources */,
 				4DEEF1D51C61E8AB00FC7546 /* SuumoViewController.swift in Sources */,
@@ -367,10 +372,13 @@
 			baseConfigurationReference = 419D5E072C1E230D786A86C9 /* Pods-SuumoKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SuumoKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Summo.SuumoKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -379,10 +387,13 @@
 			baseConfigurationReference = 0E0599F20F5FEF022C639E4D /* Pods-SuumoKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SuumoKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Summo.SuumoKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

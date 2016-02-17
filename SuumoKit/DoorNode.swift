@@ -11,6 +11,8 @@ import QuartzCore
 import SceneKit
 
 class DoorNode: SCNNode {
+    internal var roomName = ""
+    internal var lookatX = CGFloat(0)
     init(point: SCNVector3){
         super.init()
         self.position = point
@@ -40,5 +42,6 @@ class DoorNode: SCNNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 

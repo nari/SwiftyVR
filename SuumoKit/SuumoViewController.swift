@@ -12,25 +12,19 @@ import SceneKit
 import SwiftyJSON
 
 class SuumoViewController: UIViewController {
-    let path : String = NSBundle.mainBundle().pathForResource("rooms", ofType: "json")!
-    var currentRoom = ""
+    var houseView = HouseView()
+    private var currentRoom = ""
+    private var json = JSON(data: NSData())
+    private var roomView = RoomView(frame: CGRectMake(0, 0, 5, 5))
     override func viewDidLoad() {
         super.viewDidLoad()
-        let fileHandle = NSFileHandle(forReadingAtPath: path)
-        let json = JSON(data: fileHandle!.readDataToEndOfFile())
-        currentRoom = String(json["start"])
-        let rv = RoomView(frame: self.view.frame, info: json, roomName: currentRoom, lookatX: 0)
-        self.view.addSubview(rv)
-        
+        houseView = HouseView(frame: self.view.frame)
+        self.view.addSubview(houseView)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChange:", name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
-    
+        
     func onOrientationChange(notification: NSNotification){
-        let deviceOrientation: UIDeviceOrientation!  = UIDevice.currentDevice().orientation
-        if UIDeviceOrientationIsLandscape(deviceOrientation) {
-            print("hoge")
-        } else if UIDeviceOrientationIsPortrait(deviceOrientation){
-        }
+        houseView.changeFrame(self.view.frame)
         
     }
 }

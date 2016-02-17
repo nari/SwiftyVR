@@ -14,16 +14,18 @@ import SwiftyJSON
 class RoomView: SCNView {
     private let cameraNode = SCNNode()
     private var pointBefore = CGPointZero
+    private var pointStart = CGPointZero
     private var lotateX: Float = 0.0
     private var lotateY: Float = 0.0
     private var sphereNode = SCNNode()
-    private let accuracy: Float = Float(M_PI*2) / 1000.0
+    private let accuracy = Float(M_PI*2) / 1000.0
     private var imageSize = CGSizeZero
     private var ImageName = ""
     private var initCameraX = CGFloat(0)
     private let radiusSphere = CGFloat(10)
     private var doors = [DoorNode]()
     private var pointDistance = CGFloat(9.0)
+    internal var parentView = UIView()
     
     init(frame: CGRect, info: JSON, roomName: String, lookatX: CGFloat) {
         super.init(frame: frame)
@@ -80,6 +82,8 @@ class RoomView: SCNView {
         let nx = (pointDistance) * CGFloat(cos(rad))
         let ny = (pointDistance) * CGFloat(sin(rad))
         let door = DoorNode(point: SCNVector3(-ny, 0, nx))
+        door.roomName = name
+        door.lookatX = lookatX
         sphereNode.addChildNode(door)
         door.rotation = SCNVector4(x: 0, y: -1, z: 0, w: Float(convertX(x+imageSize.width/2)))
     }
@@ -91,6 +95,7 @@ class RoomView: SCNView {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         pointBefore = (touch?.locationInView(self))!
+        pointStart = (touch?.locationInView(self))!
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {                let touch = touches.first
@@ -103,6 +108,18 @@ class RoomView: SCNView {
         lotateY = (accuracy * Float(pointDiff.y) + lotateY)
         cameraNode.rotation = SCNVector4(x:1, y:0, z:0, w: lotateY)
         pointBefore = pointNow
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first
+        let point = (touch?.locationInView(self))!
+        if point == pointStart {
+            let hits = self.hitTest(point, options: nil)
+            if hits.count < 2 {return}
+            if let door = hits[0].node as? DoorNode {
+                (self.parentView as! HouseView).changeRoom(door.roomName, lookatX: door.lookatX)
+            }
+        }
     }
 
 }
