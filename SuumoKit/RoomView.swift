@@ -23,8 +23,8 @@ class RoomView: SCNView {
     private var imageSize = CGSizeZero
     private var ImageName = ""
     private var initCameraX = CGFloat(0)
+    private var beforeCameraX = Float(0)
     private let radiusSphere = CGFloat(10)
-    private var doors = [DoorNode]()
     private var pointDistance = CGFloat(9.0)
     private var motionControl = false
     internal var parentView = UIView()
@@ -34,6 +34,13 @@ class RoomView: SCNView {
         }
         set(value){
             self.motionControl = value
+            if value {
+                beforeCameraX = rotateX
+                
+                print(beforeCameraX)
+                print("****")
+                self.cameraNode.rotation = SCNVector4(x:0, y:1, z:0, w: rotateX)
+            }
             setupMotion()
         }
     }
@@ -51,7 +58,6 @@ class RoomView: SCNView {
                 addDoor(CGFloat(points[index]["x"].intValue), y: CGFloat(points[index]["y"].intValue), lookatX: CGFloat(points[index]["lookat_x"].intValue), name: points[index]["room"].string!)
             }
         }
-        if isMotion {setupMotion() }
     }
     
     override init(frame: CGRect) {
@@ -88,6 +94,8 @@ class RoomView: SCNView {
 //        First LookAt Camera
         rotateX = -Float(convertX(initCameraX))
         cameraNode.eulerAngles = SCNVector3(0, rotateX, 0)
+        print(rotateX)
+        print("----")
         
         self.scene = scene
         self.allowsCameraControl = false
@@ -110,15 +118,15 @@ class RoomView: SCNView {
         return (x / imageSize.width * CGFloat(M_PI*2))
     }
     
-    
     func setupMotion(){
         motionManager.accelerometerUpdateInterval = 0.001
         motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) { (motion: CMDeviceMotion?, error: NSError?) -> Void in
             if self.motionControl {
                 let currentAttitude = motion!.attitude
                 let roll = Float(currentAttitude.roll) + (0.5*Float(M_PI))
-                let yaw = Float(currentAttitude.yaw)
+                let yaw = Float(currentAttitude.yaw)// + self.beforeCameraX
                 self.cameraNode.eulerAngles = SCNVector3(x: -roll, y: yaw, z: 0)
+                self.rotateX = yaw
             }
         }
     }
