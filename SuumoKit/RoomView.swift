@@ -10,13 +10,14 @@ import UIKit
 import QuartzCore
 import SceneKit
 import SwiftyJSON
+import CoreMotion
 
 class RoomView: SCNView {
     private let cameraNode = SCNNode()
     private var pointBefore = CGPointZero
     private var pointStart = CGPointZero
-    private var lotateX: Float = 0.0
-    private var lotateY: Float = 0.0
+    private var rotateX: Float = 0.0
+    private var rotateY: Float = 0.0
     private var sphereNode = SCNNode()
     private let accuracy = Float(M_PI*2) / 1000.0
     private var imageSize = CGSizeZero
@@ -26,9 +27,12 @@ class RoomView: SCNView {
     private var doors = [DoorNode]()
     private var pointDistance = CGFloat(9.0)
     internal var parentView = UIView()
+    internal var isMotion = true
+    private  let motionManager = CMMotionManager()
+    private final let LOWPASS_FILTER = 0.1
     
     init(frame: CGRect, info: JSON, roomName: String, lookatX: CGFloat) {
-        super.init(frame: frame)
+        super.init(frame: frame == CGRectZero ? CGRectMake(0, 0, 1, 1) : frame)
         imageSize = CGSizeMake(CGFloat(info["rooms"][roomName]["image"]["width"].intValue), CGFloat(info["rooms"][roomName]["image"]["height"].intValue))
         ImageName = info["rooms"][roomName]["image"]["src"].string!
         initCameraX = lookatX
@@ -38,6 +42,7 @@ class RoomView: SCNView {
                 addDoor(CGFloat(points[index]["x"].intValue), y: CGFloat(points[index]["y"].intValue), lookatX: CGFloat(points[index]["lookat_x"].intValue), name: points[index]["room"].string!)
             }
         }
+        if isMotion {setupMotion() }
     }
     
     override init(frame: CGRect) {
@@ -55,25 +60,29 @@ class RoomView: SCNView {
     
     func setup(){
         let scene = SCNScene()
+        
+//        カメラの設定
         cameraNode.camera = SCNCamera()
         scene.rootNode.addChildNode(cameraNode)
         
+//        球体を作成
         let sphereGeometry = SCNSphere(radius: radiusSphere)
         sphereNode = SCNNode(geometry: sphereGeometry)
         
+//        画像貼り付け
         sphereGeometry.firstMaterial?.diffuse.contents = UIImage(named: ImageName)
         sphereGeometry.firstMaterial?.doubleSided = true
         sphereGeometry.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(-1, 1 ,1);
         sphereGeometry.firstMaterial?.diffuse.wrapS = SCNWrapMode.Repeat
         scene.rootNode.addChildNode(sphereNode)
         
-//        init lotate camera
-        lotateX = -Float(convertX(initCameraX))
-        sphereNode.rotation = SCNVector4(x:0, y:-1, z:0, w: lotateX)
+//        初期に向いている方向
+        rotateX = -Float(convertX(initCameraX))
+        sphereNode.rotation = SCNVector4(x:0, y:-1, z:0, w: rotateX)
         
         self.scene = scene
         self.allowsCameraControl = false
-        self.backgroundColor = UIColor.grayColor()
+        self.backgroundColor = UIColor.clearColor()
     }
     
     func addDoor(x: CGFloat, y: CGFloat, lookatX: CGFloat, name: String){
@@ -92,6 +101,21 @@ class RoomView: SCNView {
         return (x / imageSize.width * CGFloat(M_PI*2))
     }
     
+    
+    func setupMotion(){
+//        var accelX: UIAccelerationValue = 0.0
+        motionManager.accelerometerUpdateInterval = 0.01
+        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) { (motion: CMDeviceMotion?, error: NSError?) -> Void in
+//            let bnb = accelX
+//            let a  = (accelX * (1.0 - self.LOWPASS_FILTER)) + ((self.motionManager.deviceMotion?.attitude.yaw)! * self.LOWPASS_FILTER)
+//            if abs(accelX - bnb) >= 1  {
+//                accelX = a
+//                self.rotateX = Float(accelX)
+//                self.sphereNode.rotation = SCNVector4(x:0, y:-1, z:0, w: self.rotateX)
+//            }
+        }
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         pointBefore = (touch?.locationInView(self))!
@@ -102,11 +126,11 @@ class RoomView: SCNView {
         let pointNow = (touch?.locationInView(self))!
         let pointDiff = CGPointMake(pointNow.x - pointBefore.x, pointNow.y - pointBefore.y)
         
-        lotateX = (accuracy * Float(pointDiff.x) + lotateX) % Float(M_PI*2)
-        sphereNode.rotation = SCNVector4(x:0, y:-1, z:0, w: lotateX)
+        rotateX = (accuracy * Float(pointDiff.x) + rotateX) % Float(M_PI*2)
+        sphereNode.rotation = SCNVector4(x:0, y:-1, z:0, w: rotateX)
         
-        lotateY = (accuracy * Float(pointDiff.y) + lotateY)
-        cameraNode.rotation = SCNVector4(x:1, y:0, z:0, w: lotateY)
+        rotateY = (accuracy * Float(pointDiff.y) + rotateY)
+        cameraNode.rotation = SCNVector4(x:1, y:0, z:0, w: rotateY)
         pointBefore = pointNow
     }
     
