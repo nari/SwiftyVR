@@ -29,26 +29,19 @@ class HouseView: UIView , SCNSceneRendererDelegate{
     }
     
     func changeRoom(roomName: String, lookatX: CGFloat) {
-        currentRoom = roomName
+        roomView.removeFromSuperview()
         
+        currentRoom = roomName
         roomView = RoomView(frame: self.frame, info: json, roomName: currentRoom, lookatX: lookatX)
         roomView.parentView = self
         roomView.delegate = self
         self.addSubview(roomView)
     }
 
-    func changeFrame(frame: CGRect){
+    func changeFrame(frame: CGRect, isMotion: Bool){
         roomView.frame = frame
+        roomView.isMotion = isMotion
         self.frame = frame
-    }
-    
-    func imageFromView()-> UIImage{
-        UIGraphicsBeginImageContext(self.frame.size)
-        let context = UIGraphicsGetCurrentContext()
-        self.layer.renderInContext(context!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -26,8 +26,17 @@ class RoomView: SCNView {
     private let radiusSphere = CGFloat(10)
     private var doors = [DoorNode]()
     private var pointDistance = CGFloat(9.0)
+    private var motionControl = false
     internal var parentView = UIView()
-    internal var isMotion = true
+    internal var isMotion: Bool{
+        get{
+            return self.motionControl
+        }
+        set(value){
+            self.motionControl = value
+            setupMotion()
+        }
+    }
     private  let motionManager = CMMotionManager()
     private final let LOWPASS_FILTER = 0.1
     
@@ -61,24 +70,24 @@ class RoomView: SCNView {
     func setup(){
         let scene = SCNScene()
         
-//        カメラの設定
+//        Setting Camera
         cameraNode.camera = SCNCamera()
         scene.rootNode.addChildNode(cameraNode)
         
-//        球体を作成
+//        Setting Geometry for Background
         let sphereGeometry = SCNSphere(radius: radiusSphere)
         sphereNode = SCNNode(geometry: sphereGeometry)
         
-//        画像貼り付け
+//        Setting BackGround
         sphereGeometry.firstMaterial?.diffuse.contents = UIImage(named: ImageName)
         sphereGeometry.firstMaterial?.doubleSided = true
         sphereGeometry.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(-1, 1 ,1);
         sphereGeometry.firstMaterial?.diffuse.wrapS = SCNWrapMode.Repeat
         scene.rootNode.addChildNode(sphereNode)
         
-//        初期に向いている方向
+//        First LookAt Camera
         rotateX = -Float(convertX(initCameraX))
-        sphereNode.rotation = SCNVector4(x:0, y:-1, z:0, w: rotateX)
+        cameraNode.eulerAngles = SCNVector3(0, rotateX, 0)
         
         self.scene = scene
         self.allowsCameraControl = false
@@ -103,16 +112,14 @@ class RoomView: SCNView {
     
     
     func setupMotion(){
-//        var accelX: UIAccelerationValue = 0.0
-        motionManager.accelerometerUpdateInterval = 0.01
+        motionManager.accelerometerUpdateInterval = 0.001
         motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) { (motion: CMDeviceMotion?, error: NSError?) -> Void in
-//            let bnb = accelX
-//            let a  = (accelX * (1.0 - self.LOWPASS_FILTER)) + ((self.motionManager.deviceMotion?.attitude.yaw)! * self.LOWPASS_FILTER)
-//            if abs(accelX - bnb) >= 1  {
-//                accelX = a
-//                self.rotateX = Float(accelX)
-//                self.sphereNode.rotation = SCNVector4(x:0, y:-1, z:0, w: self.rotateX)
-//            }
+            if self.motionControl {
+                let currentAttitude = motion!.attitude
+                let roll = Float(currentAttitude.roll) + (0.5*Float(M_PI))
+                let yaw = Float(currentAttitude.yaw)
+                self.cameraNode.eulerAngles = SCNVector3(x: -roll, y: yaw, z: 0)
+            }
         }
     }
     
@@ -125,13 +132,12 @@ class RoomView: SCNView {
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {                let touch = touches.first
         let pointNow = (touch?.locationInView(self))!
         let pointDiff = CGPointMake(pointNow.x - pointBefore.x, pointNow.y - pointBefore.y)
-        
-        rotateX = (accuracy * Float(pointDiff.x) + rotateX) % Float(M_PI*2)
-        sphereNode.rotation = SCNVector4(x:0, y:-1, z:0, w: rotateX)
-        
-        rotateY = (accuracy * Float(pointDiff.y) + rotateY)
-        cameraNode.rotation = SCNVector4(x:1, y:0, z:0, w: rotateY)
-        pointBefore = pointNow
+        if !motionControl {
+            rotateX = (accuracy * Float(pointDiff.x) + rotateX) % Float(M_PI*2)
+            rotateY = (accuracy * Float(pointDiff.y) + rotateY)
+            cameraNode.eulerAngles = SCNVector3(rotateY, rotateX, 0)
+            pointBefore = pointNow
+        }
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
