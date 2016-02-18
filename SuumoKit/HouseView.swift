@@ -36,14 +36,14 @@ class HouseView: UIView , SCNSceneRendererDelegate{
         roomView = RoomView(frame: self.frame, info: json, roomName: currentRoom, lookatX: lookatX)
         roomView.parentView = self
         roomView.delegate = self
-        roomView.isMotion = self.motionControl
+//        roomView.isMotion = self.motionControl
         self.addSubview(roomView)
     }
 
     func changeFrame(frame: CGRect, isMotion: Bool){
         roomView.frame = frame
-        roomView.isMotion = isMotion
-        self.motionControl = isMotion
+//        roomView.isMotion = isMotion
+//        self.motionControl = isMotion
         self.frame = frame
     }
 

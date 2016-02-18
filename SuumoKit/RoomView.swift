@@ -26,7 +26,10 @@ class RoomView: SCNView {
     private var beforeCameraX = Float(0)
     private let radiusSphere = CGFloat(10)
     private var pointDistance = CGFloat(9.0)
-    private var motionControl = false
+    private var motionControl = true
+    private var cameraRollNode = SCNNode()
+    private var cameraPitchNode = SCNNode()
+    private var cameraYawNode = SCNNode()
     internal var parentView = UIView()
     internal var isMotion: Bool{
         get{
@@ -36,9 +39,6 @@ class RoomView: SCNView {
             self.motionControl = value
             if value {
                 beforeCameraX = rotateX
-                
-                print(beforeCameraX)
-                print("****")
                 self.cameraNode.rotation = SCNVector4(x:0, y:1, z:0, w: rotateX)
             }
             setupMotion()
@@ -58,6 +58,7 @@ class RoomView: SCNView {
                 addDoor(CGFloat(points[index]["x"].intValue), y: CGFloat(points[index]["y"].intValue), lookatX: CGFloat(points[index]["lookat_x"].intValue), name: points[index]["room"].string!)
             }
         }
+        setupMotion()
     }
     
     override init(frame: CGRect) {
@@ -77,8 +78,22 @@ class RoomView: SCNView {
         let scene = SCNScene()
         
 //        Setting Camera
-        cameraNode.camera = SCNCamera()
-        scene.rootNode.addChildNode(cameraNode)
+//        cameraNode.camera = SCNCamera()
+        let camera = SCNCamera()
+        let camerasNode = SCNNode()
+        camerasNode.camera = camera
+        camerasNode.position = SCNVector3(x: 0, y: 0, z: 0)
+        camerasNode.eulerAngles = SCNVector3Make(-Float(M_PI_2), 0, 0)
+        
+        cameraRollNode = SCNNode()
+        cameraRollNode.addChildNode(camerasNode)
+        
+        cameraPitchNode = SCNNode()
+        cameraPitchNode.addChildNode(cameraRollNode)
+        
+        cameraYawNode = SCNNode()
+        cameraYawNode.addChildNode(cameraPitchNode)
+        scene.rootNode.addChildNode(cameraYawNode)
         
 //        Setting Geometry for Background
         let sphereGeometry = SCNSphere(radius: radiusSphere)
@@ -92,10 +107,9 @@ class RoomView: SCNView {
         scene.rootNode.addChildNode(sphereNode)
         
 //        First LookAt Camera
-        rotateX = -Float(convertX(initCameraX))
-        cameraNode.eulerAngles = SCNVector3(0, rotateX, 0)
-        print(rotateX)
-        print("----")
+//        rotateX = -Float(convertX(initCameraX))
+//        cameraNode.eulerAngles = SCNVector3(0, rotateX, 0)
+//        cameraNode.eulerAngles.y = rotateX + Float(M_PI)
         
         self.scene = scene
         self.allowsCameraControl = false
@@ -123,10 +137,20 @@ class RoomView: SCNView {
         motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) { (motion: CMDeviceMotion?, error: NSError?) -> Void in
             if self.motionControl {
                 let currentAttitude = motion!.attitude
-                let roll = Float(currentAttitude.roll) + (0.5*Float(M_PI))
-                let yaw = Float(currentAttitude.yaw)// + self.beforeCameraX
-                self.cameraNode.eulerAngles = SCNVector3(x: -roll, y: yaw, z: 0)
-                self.rotateX = yaw
+//                let roll = Float(currentAttitude.roll)
+//                let pitch = Float(currentAttitude.pitch)
+//                let yaw = Float(currentAttitude.yaw)
+                
+                let roll = Float(currentAttitude.roll)
+                let pitch = Float(currentAttitude.pitch)
+                let yaw = Float(currentAttitude.yaw)
+                
+                //only working at 60FPS on iPhone 6... WHY
+                
+                //according to documentation, SCNVector3 from a node is, (pitch, yaw, node)
+                self.cameraRollNode.eulerAngles = SCNVector3Make(0.0, 0.0, -roll)
+                self.cameraPitchNode.eulerAngles = SCNVector3Make(pitch, 0.0, 0.0)
+                self.cameraYawNode.eulerAngles = SCNVector3Make(0.0, yaw, 0.0)
             }
         }
     }
