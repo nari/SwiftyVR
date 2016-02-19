@@ -10,7 +10,7 @@ import UIKit
 import QuartzCore
 import SceneKit
 import SwiftyJSON
-import CoreMotion
+
 
 class RoomView: SCNView {
     private let cameraNode = SCNNode()
@@ -27,24 +27,11 @@ class RoomView: SCNView {
     private let radiusSphere = CGFloat(10)
     private var pointDistance = CGFloat(9.0)
     private var motionControl = true
-    private var cameraRollNode = SCNNode()
-    private var cameraPitchNode = SCNNode()
-    private var cameraYawNode = SCNNode()
+    internal var cameraRollNode = SCNNode()
+    internal var cameraPitchNode = SCNNode()
+    internal var cameraYawNode = SCNNode()
     internal var parentView = UIView()
-    internal var isMotion: Bool{
-        get{
-            return self.motionControl
-        }
-        set(value){
-            self.motionControl = value
-            if value {
-                beforeCameraX = rotateX
-                self.cameraNode.rotation = SCNVector4(x:0, y:1, z:0, w: rotateX)
-            }
-            setupMotion()
-        }
-    }
-    private  let motionManager = CMMotionManager()
+    
     private final let LOWPASS_FILTER = 0.1
     
     init(frame: CGRect, info: JSON, roomName: String, lookatX: CGFloat) {
@@ -58,7 +45,6 @@ class RoomView: SCNView {
                 addDoor(CGFloat(points[index]["x"].intValue), y: CGFloat(points[index]["y"].intValue), lookatX: CGFloat(points[index]["lookat_x"].intValue), name: points[index]["room"].string!)
             }
         }
-        setupMotion()
     }
     
     override init(frame: CGRect) {
@@ -78,20 +64,16 @@ class RoomView: SCNView {
         let scene = SCNScene()
         
 //        Setting Camera
-//        cameraNode.camera = SCNCamera()
         let camera = SCNCamera()
+        camera.xFov = 80
+        camera.yFov = 80
         let camerasNode = SCNNode()
         camerasNode.camera = camera
         camerasNode.position = SCNVector3(x: 0, y: 0, z: 0)
         camerasNode.eulerAngles = SCNVector3Make(-Float(M_PI_2), 0, 0)
-        
-        cameraRollNode = SCNNode()
+        cameraRollNode.eulerAngles = SCNVector3(Float(M_PI_2), 0, 0)
         cameraRollNode.addChildNode(camerasNode)
-        
-        cameraPitchNode = SCNNode()
         cameraPitchNode.addChildNode(cameraRollNode)
-        
-        cameraYawNode = SCNNode()
         cameraYawNode.addChildNode(cameraPitchNode)
         scene.rootNode.addChildNode(cameraYawNode)
         
@@ -105,11 +87,6 @@ class RoomView: SCNView {
         sphereGeometry.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(-1, 1 ,1);
         sphereGeometry.firstMaterial?.diffuse.wrapS = SCNWrapMode.Repeat
         scene.rootNode.addChildNode(sphereNode)
-        
-//        First LookAt Camera
-//        rotateX = -Float(convertX(initCameraX))
-//        cameraNode.eulerAngles = SCNVector3(0, rotateX, 0)
-//        cameraNode.eulerAngles.y = rotateX + Float(M_PI)
         
         self.scene = scene
         self.allowsCameraControl = false
@@ -131,30 +108,7 @@ class RoomView: SCNView {
     func convertX(x: CGFloat)-> CGFloat {
         return (x / imageSize.width * CGFloat(M_PI*2))
     }
-    
-    func setupMotion(){
-        motionManager.accelerometerUpdateInterval = 0.001
-        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) { (motion: CMDeviceMotion?, error: NSError?) -> Void in
-            if self.motionControl {
-                let currentAttitude = motion!.attitude
-//                let roll = Float(currentAttitude.roll)
-//                let pitch = Float(currentAttitude.pitch)
-//                let yaw = Float(currentAttitude.yaw)
-                
-                let roll = Float(currentAttitude.roll)
-                let pitch = Float(currentAttitude.pitch)
-                let yaw = Float(currentAttitude.yaw)
-                
-                //only working at 60FPS on iPhone 6... WHY
-                
-                //according to documentation, SCNVector3 from a node is, (pitch, yaw, node)
-                self.cameraRollNode.eulerAngles = SCNVector3Make(0.0, 0.0, -roll)
-                self.cameraPitchNode.eulerAngles = SCNVector3Make(pitch, 0.0, 0.0)
-                self.cameraYawNode.eulerAngles = SCNVector3Make(0.0, yaw, 0.0)
-            }
-        }
-    }
-    
+        
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         pointBefore = (touch?.locationInView(self))!

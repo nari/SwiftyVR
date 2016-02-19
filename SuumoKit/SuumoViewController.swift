@@ -24,7 +24,6 @@ class SuumoViewController: UIViewController {
     }
         
     func onOrientationChange(notification: NSNotification){
-        let deviceOrientation: UIDeviceOrientation!  = UIDevice.currentDevice().orientation
-        houseView.changeFrame(self.view.frame, isMotion: UIDeviceOrientationIsLandscape(deviceOrientation))
+        houseView.changeFrame(self.view.frame)
     }
 }

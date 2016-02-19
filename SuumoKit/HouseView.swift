@@ -10,16 +10,35 @@ import UIKit
 import QuartzCore
 import SceneKit
 import SwiftyJSON
+import CoreMotion
 
 class HouseView: UIView , SCNSceneRendererDelegate{
     private var currentRoom = ""
     private var json = JSON(data: NSData())
     private var roomView = RoomView()
-    private var motionControl = false
+    private  let motionManager = CMMotionManager()
     
     override init(frame: CGRect) {
         super.init(frame: frame == CGRectZero ? CGRectMake(0, 0, 100, 100) : frame)
-        setup()
+        if frame != CGRectZero {
+            setup()
+            setupMotion()
+        }
+    }
+    
+    func setupMotion(){
+        motionManager.accelerometerUpdateInterval = 0.001
+        motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) { (motion: CMDeviceMotion?, error: NSError?) -> Void in
+            let currentAttitude = motion!.attitude
+                
+            let roll = Float(currentAttitude.roll)
+            let pitch = Float(currentAttitude.pitch)
+            let yaw = Float(currentAttitude.yaw)
+
+            self.roomView.cameraRollNode.eulerAngles = SCNVector3Make(0.0, 0.0, -roll)
+            self.roomView.cameraPitchNode.eulerAngles = SCNVector3Make(pitch, 0.0, 0.0)
+            self.roomView.cameraYawNode.eulerAngles = SCNVector3Make(0.0, yaw, 0.0)
+        }
     }
     
     func setup(){
@@ -36,14 +55,11 @@ class HouseView: UIView , SCNSceneRendererDelegate{
         roomView = RoomView(frame: self.frame, info: json, roomName: currentRoom, lookatX: lookatX)
         roomView.parentView = self
         roomView.delegate = self
-//        roomView.isMotion = self.motionControl
         self.addSubview(roomView)
     }
 
-    func changeFrame(frame: CGRect, isMotion: Bool){
+    func changeFrame(frame: CGRect){
         roomView.frame = frame
-//        roomView.isMotion = isMotion
-//        self.motionControl = isMotion
         self.frame = frame
     }
 
