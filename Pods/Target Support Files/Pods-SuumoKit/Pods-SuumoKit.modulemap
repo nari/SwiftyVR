@@ -1,6 +1,0 @@
-framework module Pods_SuumoKit {
-  umbrella header "Pods-SuumoKit-umbrella.h"
-
-  export *
-  module * { export * }
-}

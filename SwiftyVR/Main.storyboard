@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Suumo View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="X5r-GN-CDW">
             <objects>
-                <viewController id="7VG-WQ-SJi" customClass="SuumoViewController" customModule="SuumoKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7VG-WQ-SJi" customClass="MainViewController" customModule="SwiftyVR" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1RV-44-dad"/>
                         <viewControllerLayoutGuide type="bottom" id="Uhe-Mt-y5z"/>

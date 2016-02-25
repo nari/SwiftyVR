@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  SuumoKit
+//  SwiftyVR
 //
-//  Created by NarimasaIwabuchi on 2016/02/03.
+//  Created by NarimasaIwabuchi on 2016/02/25.
 //  Copyright © 2016年 Nari. All rights reserved.
 //
 

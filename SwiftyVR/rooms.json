@@ -5,31 +5,31 @@
             "title":"リビング",
             "image":{"width":5376,"height":2688,"src":"01.jpg"},
             "points":[
-                {"x":5028,"y":1360,"room":"bedroom","lookat_x":1972},
-                {"x":4632,"y":1360,"room":"childroom","lookat_x":3280},
-                {"x":1376,"y":1400,"room":"veranda","lookat_x":4168}
-            ]
+                      {"x":5028,"y":1360,"room":"bedroom","lookat_x":1972},
+                      {"x":4632,"y":1360,"room":"childroom","lookat_x":3280},
+                      {"x":1376,"y":1400,"room":"veranda","lookat_x":4168}
+                      ]
         },
         "bedroom":{
             "title":"寝室",
             "image":{"width":5376,"height":2688,"src":"02.jpg"},
             "points":[
-                {"x":4660,"y":1360,"room":"living","lookat_x":2340}
-            ]
+                      {"x":4660,"y":1360,"room":"living","lookat_x":2340}
+                      ]
         },
         "childroom":{
             "title":"子供部屋",
             "image":{"width":5376,"height":2688,"src":"03.jpg"},
             "points":[
-                {"x":592,"y":1360,"room":"living","lookat_x":1944}
-            ]
+                      {"x":592,"y":1360,"room":"living","lookat_x":1944}
+                      ]
         },
         "veranda":{
             "title":"バルコニー",
             "image":{"width":5376,"height":2688,"src":"04.jpg"},
             "points":[
-                {"x":1480,"y":1560,"room":"living","lookat_x":4064}
-            ]
+                      {"x":1480,"y":1560,"room":"living","lookat_x":4064}
+                      ]
         }
     }
 }

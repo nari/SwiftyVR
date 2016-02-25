@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-SuumoKit.xcscheme</key>
+		<key>Pods-SwiftyVR.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>07D370A55B36F25EB112F94EFE47C8C9</key>
+		<key>C8E3E778AAD0243BF5267F971749A63A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6CE4B7623C549CCE6A2C29403B78B0F9</key>
+		<key>F281F76D3EB82E63333CCCDCECBCCD82</key>
 		<dict>
 			<key>primary</key>
 			<true/>
