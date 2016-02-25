@@ -16,19 +16,19 @@ class DoorNode: SCNNode {
     init(point: SCNVector3){
         super.init()
         self.position = point
-        create_door()
+        createDoor()
     }
     
     override init() {
         super.init()
         self.position = SCNVector3(0, 0, 9)
-        create_door()
+        createDoor()
     }
     
 //    ドアを作成
-    func create_door(){
-        let plane = SCNPlane(width: 1.0, height: 1.0)
-        plane.cornerRadius = 0.5
+    func createDoor(){
+        let plane = SCNPlane(width: 1.5, height: 1.5)
+        plane.cornerRadius = 0.75
         self.geometry = plane
         let door = SCNMaterial()
         door.diffuse.contents = UIImage(named:"door.png")

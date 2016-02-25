@@ -19,7 +19,7 @@ class RoomView: SCNView {
     private var ImageName = "" // 画像の名前
     private var initCameraX = CGFloat(0) // 最初のカメラのx座標
     private let radiusSphere = CGFloat(10) // 球の半径
-    private var pointDistance = CGFloat(8.0) // ドアとの半径
+    private var pointDistance = CGFloat(9.0) // ドアとの半径
     internal let camerasNode = SCNNode() // カメラを司るノード
     internal var cameraRollNode = SCNNode() // X回転を司るノード
     internal var cameraYawNode = SCNNode() // Y回転を司るノード

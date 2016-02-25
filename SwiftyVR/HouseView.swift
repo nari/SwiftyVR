@@ -60,7 +60,7 @@ class HouseView: UIView{
         currentRoom = roomName
         roomView = RoomView(frame: self.frame, info: json, roomName: currentRoom, lookatX: lookatX)
         roomView.parentView = self
-        roomView.rotateSphere(beforeYow)
+        roomView.rotateSphere(beforeYow) // 前の部屋のYawだけ戻す処理
         self.addSubview(roomView)
     }
     
