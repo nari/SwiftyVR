@@ -17,11 +17,12 @@
 		4D8ABDAC1C7EA67E00471A5B /* DoorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8ABDA91C7EA67E00471A5B /* DoorNode.swift */; };
 		4D8ABDB01C7EA7E100471A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDAF1C7EA7E100471A5B /* Main.storyboard */; };
 		4D8ABDBD1C7EA9C300471A5B /* rooms.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDBC1C7EA9C300471A5B /* rooms.json */; };
-		4D8ABDC21C7EABB400471A5B /* 01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDBE1C7EABB400471A5B /* 01.jpg */; };
-		4D8ABDC31C7EABB400471A5B /* 02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDBF1C7EABB400471A5B /* 02.jpg */; };
-		4D8ABDC41C7EABB400471A5B /* 03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDC01C7EABB400471A5B /* 03.jpg */; };
-		4D8ABDC51C7EABB400471A5B /* 04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDC11C7EABB400471A5B /* 04.jpg */; };
 		4D8ABDC71C7EABD900471A5B /* door.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDC61C7EABD900471A5B /* door.png */; };
+		4D8ABDCC1C7EAF5D00471A5B /* 02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDC81C7EAF5D00471A5B /* 02.jpg */; };
+		4D8ABDCD1C7EAF5D00471A5B /* 03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDC91C7EAF5D00471A5B /* 03.jpg */; };
+		4D8ABDCE1C7EAF5D00471A5B /* 04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDCA1C7EAF5D00471A5B /* 04.jpg */; };
+		4D8ABDCF1C7EAF5D00471A5B /* 05.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDCB1C7EAF5D00471A5B /* 05.jpg */; };
+		4D8ABDD11C7EAF6300471A5B /* 01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4D8ABDD01C7EAF6300471A5B /* 01.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,11 +38,12 @@
 		4D8ABDA91C7EA67E00471A5B /* DoorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoorNode.swift; sourceTree = "<group>"; };
 		4D8ABDAF1C7EA7E100471A5B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4D8ABDBC1C7EA9C300471A5B /* rooms.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rooms.json; sourceTree = "<group>"; };
-		4D8ABDBE1C7EABB400471A5B /* 01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 01.jpg; sourceTree = "<group>"; };
-		4D8ABDBF1C7EABB400471A5B /* 02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 02.jpg; sourceTree = "<group>"; };
-		4D8ABDC01C7EABB400471A5B /* 03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 03.jpg; sourceTree = "<group>"; };
-		4D8ABDC11C7EABB400471A5B /* 04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 04.jpg; sourceTree = "<group>"; };
 		4D8ABDC61C7EABD900471A5B /* door.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = door.png; sourceTree = "<group>"; };
+		4D8ABDC81C7EAF5D00471A5B /* 02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 02.jpg; sourceTree = "<group>"; };
+		4D8ABDC91C7EAF5D00471A5B /* 03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 03.jpg; sourceTree = "<group>"; };
+		4D8ABDCA1C7EAF5D00471A5B /* 04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 04.jpg; sourceTree = "<group>"; };
+		4D8ABDCB1C7EAF5D00471A5B /* 05.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 05.jpg; sourceTree = "<group>"; };
+		4D8ABDD01C7EAF6300471A5B /* 01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 01.jpg; sourceTree = "<group>"; };
 		5ED38DC500E260B615A2197B /* Pods-SwiftyVR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyVR.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyVR/Pods-SwiftyVR.release.xcconfig"; sourceTree = "<group>"; };
 		7B7BBE5583F062E278DA2E03 /* Pods-SwiftyVR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyVR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyVR/Pods-SwiftyVR.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,11 +99,12 @@
 		4D8ABDB91C7EA8CE00471A5B /* image */ = {
 			isa = PBXGroup;
 			children = (
+				4D8ABDD01C7EAF6300471A5B /* 01.jpg */,
+				4D8ABDC81C7EAF5D00471A5B /* 02.jpg */,
+				4D8ABDC91C7EAF5D00471A5B /* 03.jpg */,
+				4D8ABDCA1C7EAF5D00471A5B /* 04.jpg */,
+				4D8ABDCB1C7EAF5D00471A5B /* 05.jpg */,
 				4D8ABDC61C7EABD900471A5B /* door.png */,
-				4D8ABDBE1C7EABB400471A5B /* 01.jpg */,
-				4D8ABDBF1C7EABB400471A5B /* 02.jpg */,
-				4D8ABDC01C7EABB400471A5B /* 03.jpg */,
-				4D8ABDC11C7EABB400471A5B /* 04.jpg */,
 			);
 			name = image;
 			sourceTree = "<group>";
@@ -184,11 +187,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D8ABDC41C7EABB400471A5B /* 03.jpg in Resources */,
-				4D8ABDC51C7EABB400471A5B /* 04.jpg in Resources */,
+				4D8ABDCD1C7EAF5D00471A5B /* 03.jpg in Resources */,
+				4D8ABDD11C7EAF6300471A5B /* 01.jpg in Resources */,
+				4D8ABDCE1C7EAF5D00471A5B /* 04.jpg in Resources */,
 				4D8ABDC71C7EABD900471A5B /* door.png in Resources */,
-				4D8ABDC21C7EABB400471A5B /* 01.jpg in Resources */,
-				4D8ABDC31C7EABB400471A5B /* 02.jpg in Resources */,
+				4D8ABDCC1C7EAF5D00471A5B /* 02.jpg in Resources */,
+				4D8ABDCF1C7EAF5D00471A5B /* 05.jpg in Resources */,
 				4D8ABD9E1C7EA5D200471A5B /* LaunchScreen.storyboard in Resources */,
 				4D8ABD9B1C7EA5D200471A5B /* Assets.xcassets in Resources */,
 				4D8ABDBD1C7EA9C300471A5B /* rooms.json in Resources */,

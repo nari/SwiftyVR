@@ -1,34 +1,42 @@
 {
-    "start":"living",
+    "start":"living1",
     "rooms":{
-        "living":{
-            "title":"リビング",
+        "living1":{
+            "title":"リビング1",
             "image":{"width":5376,"height":2688,"src":"01.jpg"},
             "points":[
-                      {"x":5028,"y":1360,"room":"bedroom","lookat_x":1972},
-                      {"x":4632,"y":1360,"room":"childroom","lookat_x":3280},
-                      {"x":1376,"y":1400,"room":"veranda","lookat_x":4168}
+                      {"x":716,"y":1352,"room":"living2","lookat_x":3356},
+                      {"x":3936,"y":1352,"room":"living3","lookat_x":5324},
+                      {"x":5348,"y":1352,"room":"bedroom","lookat_x":2416}
+                      ]
+        },
+        "living2":{
+            "title":"リビング２",
+            "image":{"width":5376,"height":2688,"src":"02.jpg"},
+            "points":[
+                      {"x":648,"y":1352,"room":"living1","lookat_x":3676}
+                      ]
+        },
+        "living3":{
+            "title":"リビング３",
+            "image":{"width":5376,"height":2688,"src":"03.jpg"},
+            "points":[
+                      {"x":2548,"y":1352,"room":"living1","lookat_x":560}
                       ]
         },
         "bedroom":{
             "title":"寝室",
-            "image":{"width":5376,"height":2688,"src":"02.jpg"},
-            "points":[
-                      {"x":4660,"y":1360,"room":"living","lookat_x":2340}
-                      ]
-        },
-        "childroom":{
-            "title":"子供部屋",
-            "image":{"width":5376,"height":2688,"src":"03.jpg"},
-            "points":[
-                      {"x":592,"y":1360,"room":"living","lookat_x":1944}
-                      ]
-        },
-        "veranda":{
-            "title":"バルコニー",
             "image":{"width":5376,"height":2688,"src":"04.jpg"},
             "points":[
-                      {"x":1480,"y":1560,"room":"living","lookat_x":4064}
+                      {"x":3288,"y":1400,"room":"living1","lookat_x":2600},
+                      {"x":1852,"y":1400,"room":"bedroom2","lookat_x":344}
+                      ]
+        },
+        "bedroom2":{
+            "title":"寝室(奥)",
+            "image":{"width":5376,"height":2688,"src":"05.jpg"},
+            "points":[
+                      {"x":2888,"y":1376,"room":"bedroom","lookat_x":5356}
                       ]
         }
     }
