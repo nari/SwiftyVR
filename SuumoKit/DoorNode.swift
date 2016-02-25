@@ -12,7 +12,7 @@ import SceneKit
 
 class DoorNode: SCNNode {
     internal var roomName = ""
-    internal var lookatX = CGFloat(0)
+    internal var lookatX = Float(0)
     init(point: SCNVector3){
         super.init()
         self.position = point
@@ -25,6 +25,7 @@ class DoorNode: SCNNode {
         create_door()
     }
     
+//    ドアを作成
     func create_door(){
         let plane = SCNPlane(width: 1.0, height: 1.0)
         plane.cornerRadius = 0.5

@@ -13,37 +13,27 @@ import SwiftyJSON
 
 
 class RoomView: SCNView {
-    private let cameraNode = SCNNode()
-    private var pointBefore = CGPointZero
-    private var pointStart = CGPointZero
-    private var rotateX: Float = 0.0
-    private var rotateY: Float = 0.0
-    private var sphereNode = SCNNode()
-    private let accuracy = Float(M_PI*2) / 1000.0
-    private var imageSize = CGSizeZero
-    private var ImageName = ""
-    private var initCameraX = CGFloat(0)
-    private var beforeCameraX = Float(0)
-    private let radiusSphere = CGFloat(10)
-    private var pointDistance = CGFloat(9.0)
-    private var motionControl = true
-    internal var cameraRollNode = SCNNode()
-    internal var cameraPitchNode = SCNNode()
-    internal var cameraYawNode = SCNNode()
-    internal var parentView = UIView()
+    private var tapStart = CGPointZero // タップし始めた座標
+    private var sphereNode = SCNNode() // 球のノード
+    private var imageSize = CGSizeZero // 画像のサイズ
+    private var ImageName = "" // 画像の名前
+    private var initCameraX = CGFloat(0) // 最初のカメラのx座標
+    private let radiusSphere = CGFloat(10) // 球の半径
+    private var pointDistance = CGFloat(8.0) // ドアとの半径
+    internal let camerasNode = SCNNode() // カメラを司るノード
+    internal var cameraRollNode = SCNNode() // X回転を司るノード
+    internal var cameraYawNode = SCNNode() // Y回転を司るノード
+    internal var cameraPitchNode = SCNNode() // Z回転を司るノード
+    internal var parentView = UIView() // HouseView
     
-    private final let LOWPASS_FILTER = 0.1
-    
-    init(frame: CGRect, info: JSON, roomName: String, lookatX: CGFloat) {
+    init(frame: CGRect, info: JSON, roomName: String, lookatX: Float) {
         super.init(frame: frame == CGRectZero ? CGRectMake(0, 0, 1, 1) : frame)
+//        json parse
         imageSize = CGSizeMake(CGFloat(info["rooms"][roomName]["image"]["width"].intValue), CGFloat(info["rooms"][roomName]["image"]["height"].intValue))
         ImageName = info["rooms"][roomName]["image"]["src"].string!
-        initCameraX = lookatX
         setup()
         if let points = info["rooms"][roomName]["points"].array {
-            for var index:Int = 0 ; index < points.count ;index += 1{
-                addDoor(CGFloat(points[index]["x"].intValue), y: CGFloat(points[index]["y"].intValue), lookatX: CGFloat(points[index]["lookat_x"].intValue), name: points[index]["room"].string!)
-            }
+            setupDoor(points)
         }
     }
     
@@ -67,11 +57,8 @@ class RoomView: SCNView {
         let camera = SCNCamera()
         camera.xFov = 80
         camera.yFov = 80
-        let camerasNode = SCNNode()
         camerasNode.camera = camera
-        camerasNode.position = SCNVector3(x: 0, y: 0, z: 0)
         camerasNode.eulerAngles = SCNVector3Make(-Float(M_PI_2), 0, 0)
-        cameraRollNode.eulerAngles = SCNVector3(Float(M_PI_2), 0, 0)
         cameraRollNode.addChildNode(camerasNode)
         cameraPitchNode.addChildNode(cameraRollNode)
         cameraYawNode.addChildNode(cameraPitchNode)
@@ -93,8 +80,20 @@ class RoomView: SCNView {
         self.backgroundColor = UIColor.clearColor()
     }
     
-    func addDoor(x: CGFloat, y: CGFloat, lookatX: CGFloat, name: String){
-        let angle = (x / imageSize.width * 360.0 + 180)
+    func setupDoor(points: [JSON]){
+        for var index:Int = 0 ; index < points.count ;index += 1{
+            addDoor(Float(points[index]["x"].intValue), y: Float(points[index]["y"].intValue), lookatX: Float(points[index]["lookat_x"].intValue), name: points[index]["room"].string!)
+        }
+    }
+    
+//    球をradianだけ回転させる
+    func rotateSphere(radian: Float){
+        sphereNode.rotation = SCNVector4(0, 1, 0, radian)
+    }
+    
+//    ドア画像を追加、カメラの方向に回転
+    func addDoor(x: Float, y: Float, lookatX: Float, name: String){
+        let angle = (x / Float(imageSize.width) * 360.0 + 180)
         let rad = M_PI * Double(angle) / 180.0
         let nx = (pointDistance) * CGFloat(cos(rad))
         let ny = (pointDistance) * CGFloat(sin(rad))
@@ -102,34 +101,25 @@ class RoomView: SCNView {
         door.roomName = name
         door.lookatX = lookatX
         sphereNode.addChildNode(door)
-        door.rotation = SCNVector4(x: 0, y: -1, z: 0, w: Float(convertX(x+imageSize.width/2)))
+        door.rotation = SCNVector4(x: 0, y: -1, z: 0, w: Float(convertXtoRadian(x + Float(imageSize.width/2) )))
     }
     
-    func convertX(x: CGFloat)-> CGFloat {
-        return (x / imageSize.width * CGFloat(M_PI*2))
+//    画像の大きさとx座標からradianに変換
+    func convertXtoRadian(x: Float)-> Float {
+        return (x / Float(imageSize.width) * Float(M_PI*2))
     }
-        
+    
+//    タッチし始めた
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
-        pointBefore = (touch?.locationInView(self))!
-        pointStart = (touch?.locationInView(self))!
+        tapStart = (touch?.locationInView(self))!
     }
-    
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {                let touch = touches.first
-        let pointNow = (touch?.locationInView(self))!
-        let pointDiff = CGPointMake(pointNow.x - pointBefore.x, pointNow.y - pointBefore.y)
-        if !motionControl {
-            rotateX = (accuracy * Float(pointDiff.x) + rotateX) % Float(M_PI*2)
-            rotateY = (accuracy * Float(pointDiff.y) + rotateY)
-            cameraNode.eulerAngles = SCNVector3(rotateY, rotateX, 0)
-            pointBefore = pointNow
-        }
-    }
-    
+
+//    タッチし終わった
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         let point = (touch?.locationInView(self))!
-        if point == pointStart {
+        if point == tapStart {
             let hits = self.hitTest(point, options: nil)
             if hits.count < 2 {return}
             if let door = hits[0].node as? DoorNode {
